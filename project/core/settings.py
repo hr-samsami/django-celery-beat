@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "orders.apps.OrdersConfig",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -132,16 +133,16 @@ CELERY_BROKER_URL = "redis://redis:6379"
 CELERY_RESULT_BACKEND = "redis://redis:6379"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-CELERY_BEAT_SCHEDULE = {
-    "sample_task": {
-        "task": "core.tasks.sample_task",
-        "schedule": crontab(minute="*/1"),
-    },
-     "send_email_report": {
-        "task": "core.tasks.send_email_report",
-        "schedule": crontab(minute="*/1"),
-    },
-}   
+# CELERY_BEAT_SCHEDULE = {
+#     "sample_task": {
+#         "task": "core.tasks.sample_task",
+#         "schedule": crontab(minute="*/1"),
+#     },
+#      "send_email_report": {
+#         "task": "core.tasks.send_email_report",
+#         "schedule": crontab(minute="*/1"),
+#     },
+# }   
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL = "noreply@email.com"
