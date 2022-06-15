@@ -1,10 +1,9 @@
-from datetime import timedelta, time, datetime
+from datetime import datetime, time, timedelta
 
 from django.core.mail import mail_admins
 from django.core.management import BaseCommand
 from django.utils import timezone
 from django.utils.timezone import make_aware
-
 from orders.models import Order
 
 today = timezone.now()
@@ -17,13 +16,9 @@ class Command(BaseCommand):
     help = "Send Today's Orders Report to Admins"
 
     def handle(self, *args, **options):
-        orders = Order.objects.filter(confirmed_date__range=(today_start, today_end))
 
-        if orders:
-            message = ""
-
-            for order in orders:
-                message += f"{order} \n"
+        if orders:=Order.objects.all():
+            message = "".join(f"{order} \n" for order in orders)
 
             subject = (
                 f"Order Report for {today_start.strftime('%Y-%m-%d')} "
